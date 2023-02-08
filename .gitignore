@@ -1,3 +1,5 @@
 backend/node_modules
+backend/public/.
 frontend/arkenea/node_module
 frontend/arkenea/.vscode
+frontend/arkenea/dist

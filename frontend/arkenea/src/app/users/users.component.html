@@ -1,0 +1,164 @@
+
+
+
+<div class="container mt-auto border">
+        <button type="button" class="btn btn-primary" #openModelCreateUpdate [hidden]="true" data-bs-toggle="modal"
+            data-bs-target="#exampleModal2">
+            Create New User
+        </button>
+
+    <div class="mt-5">
+        <button type="button" class="btn btn-primary" (click)="openCreatePopup()"> Create New User</button>
+    </div>
+    <h1 class="title">Users List</h1>
+    <div class="border-dark">
+        <table class="table border-0">
+            <thead>
+                <tr>
+                    <th>Sr. No.</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Phone No.</th>
+                    <th>Profile Picture</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of usersList; let i=index;">
+                    <td>{{i+1}}</td>
+                    <td>{{user.firstName}}</td>
+                    <td>{{user.lastName}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.phoneNo}}</td>
+                    <td>{{user.profileImg ? user.profileImg : "NA" }}</td>
+                    <td>
+                        <tr>
+                            <td>
+                                <button type="button" class="custom-btn" (click)="actionData(user._id, 'update')"> Update </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="button" class="custom-btn" (click)="actionData(user._id, 'view')"> View Details </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="button" class="custom-btn" (click)="actionData(user._id, 'delete')"> Delete </button>
+                            </td>
+                        </tr>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- User creation / Update form-->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModal2Label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-danger" id="exampleModal2Label">{{formText}}</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="userForm" (ngSubmit)="onSubmit(user?._id)">
+                    <div class="mb-3">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input type="text" formControlName="firstName" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f['firstName'].errors }" id="firstName"
+                            [value]="user?.firstName">
+                        <div *ngIf="submitted && f['firstName']?.errors" class="invalid-feedback">
+                            <div *ngIf="f['firstName'].errors?.required">First Name is required</div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" formControlName="lastName" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f['lastName'].errors }" id="lastName"
+                            [value]="user?.lastName">
+                        <div *ngIf="submitted && f['lastName']?.errors" class="invalid-feedback">
+                            <div *ngIf="f['lastName'].errors?.required">Last Name is required</div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Email address</label>
+                        <input type="email" formControlName="email" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" id="email"
+                            [value]="user?.email">
+                        <div *ngIf="submitted && f['email']?.errors" class="invalid-feedback">
+                            <div *ngIf="f['email'].errors?.required">Email is required</div>
+                            <div *ngIf="f['email'].errors?.email">Email must be a valid email address</div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phoneNo" class="form-label">Phone Number </label>
+                        <input type="number" formControlName="phoneNo" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f['phoneNo'].errors }" id="phoneNo"
+                            [value]="user?.phoneNo">
+                        <div *ngIf="submitted && f['phoneNo']?.errors" class="invalid-feedback">
+                            <div *ngIf="f['phoneNo'].errors?.required">Phone Number is required</div>
+                            <div *ngIf="f['phoneNo'].errors?.number">Phone Number must be a valid number</div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="profileImg" class="form-label">Profile Image </label>
+                        <input type="file" formControlName="profileImg" class="form-control" id="profileImg">
+                    </div>
+                    <button type="submit" class="btn btn-primary">{{formText}}</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" #modalDismiss class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- View Users Details-->
+<button type="button" [hidden]="true" class="btn btn-primary" data-bs-toggle="modal" #viewUserDetailsModelOpen
+    data-bs-target="#viewUserDetails">
+    View User details
+</button>
+<div class="modal fade" id="viewUserDetails" tabindex="-1" aria-labelledby="viewUserDetailsLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-danger" id="viewUserDetailsLabel">User Details</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <table>
+                        <tr>
+                            <th>First Name</th>
+                            <td>{{user?.firstName}}</td>
+                        </tr>
+                        <tr>
+                            <th>Last Name</th>
+                            <td>{{user?.lastName}}</td>
+                        </tr>
+                        <tr>
+                            <th>Phone No.</th>
+                            <td>{{user?.phoneNo}}</td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <td>{{user?.email}}</td>
+                        </tr>
+                        <tr>
+                            <th>Profile Picture</th>
+                            <td> <img [src]="user?.profileImg" /> </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,192 @@
+{
+	"info": {
+		"_postman_id": "0491ce4f-2719-438f-b2d0-8a1874bedd15",
+		"name": "akenean",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12535703"
+	},
+	"item": [
+		{
+			"name": "get All Users list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HealthCheck",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/healtcheck",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"healtcheck"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User Record",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "profileImg",
+							"type": "file",
+							"src": "/Users/shyamlal/Documents/shyam1319_Arc.png"
+						},
+						{
+							"key": "firstName",
+							"value": "Yogendra",
+							"type": "text"
+						},
+						{
+							"key": "lastName",
+							"value": "Bhadera",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "yogendra@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "phoneNo",
+							"value": "6767676789",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get An User Details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/users/63e341c45d2e0d4e7a97b197",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"users",
+						"63e341c45d2e0d4e7a97b197"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Users Details",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "firstName",
+							"value": "Shyam",
+							"type": "text"
+						},
+						{
+							"key": "lastName",
+							"value": "Lal",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "shyamssg383@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "phoneNo",
+							"value": "1234567891",
+							"type": "text"
+						},
+						{
+							"key": "profileImg",
+							"type": "file",
+							"src": "/Users/shyamlal/Documents/shyam1319_Arc.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/users/63e3486a7b528eb25325786b",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"users",
+						"63e3486a7b528eb25325786b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User Record",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/users/63e1ef0e2e85566d91001ceb",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"users",
+						"63e1ef0e2e85566d91001ceb"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

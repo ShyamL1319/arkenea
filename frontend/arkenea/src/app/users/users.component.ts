@@ -77,6 +77,8 @@ export class UsersComponent implements OnInit {
 
   openCreatePopup() {
     this.user = null;
+    this.submitted = false
+    this.setFormData();
     this.formText = "Create New User";
     this.openModelCreateUpdate.nativeElement.click();
   }
@@ -129,6 +131,7 @@ export class UsersComponent implements OnInit {
       case 'update':
         this.getUser(id);
         this.formText = "Update User Detail"
+        this.submitted = false;
         this.setFormData()
         this.openModelCreateUpdate.nativeElement.click();
         break;

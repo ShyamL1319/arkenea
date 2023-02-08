@@ -1,4 +1,6 @@
-const notFound = (err,req, res,next) => {
-    return res.status(404).end("URL does not exist");
+function notFound(err, req, res, next) {
+    res.status(404).render({msg: "URL does not exist"});
 }
-module.exports = notFound;
+module.exports = { notFound };
+
+

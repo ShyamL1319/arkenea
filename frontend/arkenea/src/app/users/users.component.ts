@@ -19,14 +19,17 @@ export class UsersComponent implements OnInit {
   });
   @ViewChild('viewUserDetailsModelOpen') viewUserDetailsModelOpen!: ElementRef;
   @ViewChild('openModelCreateUpdate') openModelCreateUpdate!: ElementRef;
-  @ViewChild('modalDismiss') modalDismiss!: ElementRef
+  @ViewChild('modalDismiss') modalDismiss!: ElementRef;
 
   BASE_URL = "http://localhost:4000/api/users";
+  IMAGE_BASE = "http://localhost:4000/uploads/"
   usersList: any = [];
   submitted: any;
   formText: any = "Create New User";
   user: { lastName: any; firstName: any; email: any; phoneNo: any; profileImg: any; _id: any };
   file: File;
+  url: any;
+  msg = "";
   constructor(private fb: FormBuilder, private httpService: HttpClient,
     private matSnackBar: MatSnackBar) {
   }
@@ -58,7 +61,7 @@ export class UsersComponent implements OnInit {
     const UserDetails = this.userForm.value
     UserDetails["profileImg"] = this.file;
     if (this.userForm.valid) {
-      this.httpService.post(this.BASE_URL + id, this.toFormData(UserDetails)).subscribe((resp) => {
+      this.httpService.post(this.BASE_URL + id == null ? "" : id, this.toFormData(UserDetails)).subscribe((resp) => {
         if (id) {
           this.snackPositionTopCenter("Record Updated Successfully")
         } else {
@@ -76,9 +79,11 @@ export class UsersComponent implements OnInit {
   }
 
   openCreatePopup() {
+    console.log("createe")
     this.user = null;
     this.submitted = false
     this.setFormData();
+    this.url = undefined
     this.formText = "Create New User";
     this.openModelCreateUpdate.nativeElement.click();
   }
@@ -115,6 +120,8 @@ export class UsersComponent implements OnInit {
           profileImg: User?.profileImg ? User?.profileImg : '',
           _id: User?._id ? User?._id : '',
         }
+        console.log(User);
+        this.setFormData();
       },
       (err) => {
         console.log(err);
@@ -132,7 +139,6 @@ export class UsersComponent implements OnInit {
         this.getUser(id);
         this.formText = "Update User Detail"
         this.submitted = false;
-        this.setFormData()
         this.openModelCreateUpdate.nativeElement.click();
         break;
       case 'delete':
@@ -158,10 +164,31 @@ export class UsersComponent implements OnInit {
     });
   }
   @HostListener('change', ['$event.target.files'])
-  emitFiles(event: FileList) {
+  emitFiles(event: any) {
+
+    if (!event || !event[0] || event[0].length == 0) {
+      this.msg = 'You can select an image';
+      return;
+    }
+    this.msg = null
     const file = event && event.item(0);
     console.log(file)
     this.file = file;
+
+    var mimeType = event[0].type;
+
+    if (mimeType.match(/image\/*/) == null) {
+      this.msg = "Only images are supported";
+      return;
+    }
+
+    var reader = new FileReader();
+    reader.readAsDataURL(event[0]);
+
+    reader.onload = (_event) => {
+      this.msg = "";
+      this.url = reader.result;
+    }
   }
 
   toFormData(formValue: any) {

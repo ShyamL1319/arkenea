@@ -7,7 +7,7 @@ const connectDB = (uri=URI) => {
             useNewUrlParser: true,
         }).then(connection => { 
         console.log("Connected to DB...");
-        console.log(connection.mongo)
+        //console.log(connection.mongo)
         }).catch((err) => { 
             console.log("error", err)
         })

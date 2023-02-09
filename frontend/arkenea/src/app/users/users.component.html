@@ -1,11 +1,8 @@
-
-
-
 <div class="container mt-auto border">
-        <button type="button" class="btn btn-primary" #openModelCreateUpdate [hidden]="true" data-bs-toggle="modal"
-            data-bs-target="#exampleModal2">
-            Create New User
-        </button>
+    <button type="button" class="btn btn-primary" #openModelCreateUpdate [hidden]="true" data-bs-toggle="modal"
+        data-bs-target="#exampleModal2">
+        Create New User
+    </button>
 
     <div class="mt-5">
         <button type="button" class="btn btn-primary" (click)="openCreatePopup()"> Create New User</button>
@@ -31,24 +28,30 @@
                     <td>{{user.lastName}}</td>
                     <td>{{user.email}}</td>
                     <td>{{user.phoneNo}}</td>
-                    <td>{{user.profileImg ? user.profileImg : "NA" }}</td>
-                    <td>
-                        <tr>
-                            <td>
-                                <button type="button" class="custom-btn" (click)="actionData(user._id, 'update')"> Update </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button type="button" class="custom-btn" (click)="actionData(user._id, 'view')"> View Details </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button type="button" class="custom-btn" (click)="actionData(user._id, 'delete')"> Delete </button>
-                            </td>
-                        </tr>
+                    <td>{{user.profileImg ? user.profileImg : "NA" }}
+                        <div class="m-2 p-2"><img [src]="IMAGE_BASE+user.profileImg" *ngIf="user.profileImg"
+                                style="max-width: 100px; max-height: 100px;"></div>
                     </td>
+                    <td>
+                <tr>
+                    <td>
+                        <button type="button" class="custom-btn" (click)="actionData(user._id, 'update')"> Update
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button" class="custom-btn" (click)="actionData(user._id, 'view')"> View Details
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button" class="custom-btn" (click)="actionData(user._id, 'delete')"> Delete
+                        </button>
+                    </td>
+                </tr>
+                </td>
                 </tr>
             </tbody>
         </table>
@@ -105,9 +108,13 @@
                     </div>
                     <div class="mb-3">
                         <label for="profileImg" class="form-label">Profile Image </label>
-                        <input type="file" formControlName="profileImg" class="form-control" id="profileImg">
+                        <input type="file" formControlName="profileImg" class="form-control" id="profileImg" [hidden]="true">
+                        <div [innerHtml]='msg' *ngIf="msg" style="color: red; "></div>
+                        <div class="m-2 p-2"><img [src]="!url?IMAGE_BASE+user?.profileImg:url"
+                                *ngIf="!url?(user?.profileImg || false):url"
+                                style="max-width: 100px; max-height: 100px;"></div>
                     </div>
-                    <button type="submit" class="btn btn-primary">{{formText}}</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">{{formText}}</button>
                 </form>
             </div>
             <div class="modal-footer">
@@ -151,7 +158,8 @@
                         </tr>
                         <tr>
                             <th>Profile Picture</th>
-                            <td> <img [src]="user?.profileImg" /> </td>
+                            <td> <img [src]="IMAGE_BASE+user?.profileImg"
+                                    style="width: 100px; height: 100px; border-radius: 50%;" /> </td>
                         </tr>
                     </table>
                 </div>

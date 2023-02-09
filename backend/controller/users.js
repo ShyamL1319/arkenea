@@ -51,7 +51,7 @@ const getUserById = async (req, res) => {
     if (!result) {
         return res.status(404).send({ status: 404, msg: "User does not exist !", data: {id} });
     }
-    return res.status(200).json({ status: 200, msg: "User details fetched Successfully", data: result });
+    return res.status(200).json({ status: 200, msg: "User details fetched Successfully", data: result});
 }
 
 

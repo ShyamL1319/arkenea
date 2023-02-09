@@ -1,5 +1,5 @@
 backend/node_modules
-backend/public/uploads/*
+backend/public/uploads/*.*
 frontend/arkenea/node_module
 frontend/arkenea/.vscode
 frontend/arkenea/dist
